@@ -1,0 +1,25 @@
+
+CREATE TABLE `users` (
+  `userId` int(11) NOT NULL,
+  `EmailAddress` varchar(100) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+INSERT INTO `users` (`userId`, `EmailAddress`, `Password`) VALUES
+(1, 'user@gmail.com', '456'),
+(2, 'michael@gmail.com', '456');
+
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userId`);
+
+
+ALTER TABLE `users`
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
