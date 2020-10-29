@@ -2,6 +2,7 @@ package mobile.kotlinlogin
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import mobile.kotlinlogin.model.LoginModel
 import mobile.kotlinlogin.rest.ApiLogin
 import kotlinx.android.synthetic.main.login.*
+import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,33 +30,31 @@ class LoginActivity : AppCompatActivity() {
 
             uemail=useremail.text.toString()
             upass=  userpass.text.toString()
-                val thread = Thread {
-                getDat1a()
-            }
-            thread.start()
-            thread.join();
 
-            //getDat1a()
-            // Toast.makeText(applicationContext,successlogin, Toast.LENGTH_SHORT).show()
-           if(successlogin.equals("1")) {
-                val intent = Intent(this, MainActivity::class.java)
-                // start your next activity
-                startActivity(intent)
-                finish()
-            }else
-            {  Toast.makeText(applicationContext,"Wrong login data", Toast.LENGTH_SHORT).show()}
+            getDat1a()
+
         }
     }
     private fun getDat1a() {
 
         val call: Call<List<LoginModel>> = ApiLogin.getClient.userlogin(uemail,upass)
-
+        llProgressBar.visibility = View.VISIBLE
         call.enqueue(object : Callback<List<LoginModel>> {
 
             override fun onResponse(call: Call<List<LoginModel>>?, response: Response<List<LoginModel>>?) {
                successlogin= response?.body()?.get(0)?.success.toString()
-                // Toast.makeText(applicationContext,response?.body()?.get(0)?.success, Toast.LENGTH_SHORT).show()
 
+                if(successlogin.equals("1")) {
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    // start your next activity
+                    startActivity(intent)
+                    llProgressBar.visibility = View.GONE
+                    finish()
+
+                }
+                else
+                {  llProgressBar.visibility = View.GONE
+                    Toast.makeText(applicationContext,"Wrong login data", Toast.LENGTH_SHORT).show()}
             }
 
             override fun onFailure(call: Call<List<LoginModel>>?, t: Throwable?) {
