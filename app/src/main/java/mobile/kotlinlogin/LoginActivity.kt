@@ -11,6 +11,7 @@ import mobile.kotlinlogin.model.LoginModel
 import mobile.kotlinlogin.rest.ApiLogin
 import kotlinx.android.synthetic.main.login.*
 import kotlinx.coroutines.*
+import mobile.kotlinlogin.rest.AppPreferences
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +24,14 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+        AppPreferences.init(this)
+       if(AppPreferences.isLogin){
+           val intent = Intent(this, MainActivity::class.java)
+           // start your next activity
+           startActivity(intent)
+
+           finish()
+       }
 
         val btn_login = findViewById(R.id.button2) as Button
 // set on-click listener
@@ -45,6 +54,8 @@ class LoginActivity : AppCompatActivity() {
                successlogin= response?.body()?.get(0)?.success.toString()
 
                 if(successlogin.equals("1")) {
+
+                    AppPreferences.isLogin = true
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     // start your next activity
                     startActivity(intent)
