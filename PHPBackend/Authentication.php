@@ -33,7 +33,7 @@ class Authentication
     function isUserExisted() {
         $sql = "SELECT `id` FROM `users` WHERE EmailAddress = '". $this->EMAIL."' ";
 
-        $result = mysqli_query($this->DB_CONNECTION, $sql);
+        $result = mysqli_query($this->DB_CONNECTION, $sql)or die("Error: ".mysqli_errno($this->DB_CONNECTION)."<br>Description:".mysqli_error($this->DB_CONNECTION)); 
 
         if(mysqli_num_rows($result) > 0) {
             return true;
@@ -46,7 +46,7 @@ class Authentication
         $sql = "SELECT `id` FROM `users` WHERE EmailAddress = '". $this->EMAIL."'
          AND Password  = '".$this->PASSWORD."'";
 
-        $result = mysqli_query($this->DB_CONNECTION, $sql);
+        $result = mysqli_query($this->DB_CONNECTION, $sql)or die("Error: ".mysqli_errno($this->DB_CONNECTION)."<br>Description:".mysqli_error($this->DB_CONNECTION)); 
 
         if(mysqli_num_rows($result) > 0) {
             return true;
@@ -58,7 +58,7 @@ class Authentication
  function userdata() {
         $sql = "SELECT * FROM `users` WHERE EmailAddress = '". $this->EMAIL."' ";
 
-        $result = mysqli_query($this->DB_CONNECTION, $sql)or die (mysqli_error($this->DB_CONNECTION));
+        $result = mysqli_query($this->DB_CONNECTION, $sql)or die("Error: ".mysqli_errno($this->DB_CONNECTION)."<br>Description:".mysqli_error($this->DB_CONNECTION)); 
 
 	   return $result;
     }
