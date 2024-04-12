@@ -5,7 +5,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-object ApiLogin { var BASE_URL:String="https://underscopemap.com/constructionradar/jsoninternet/usc/"
+
+////  BASE_URL  is your server folder where you will place all PHP scripts you need  for this app
+////PHP files you can find at "PHPBackend" from yhe root of Kotlin login source code
+object ApiLogin { var BASE_URL:String="Your server"
 
     val getClient: LoginInterface
         get() {

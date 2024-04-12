@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import mobile.kotlinlogin.model.LoginModel
 import mobile.kotlinlogin.rest.ApiLogin
 import kotlinx.android.synthetic.main.login.*
-import kotlinx.coroutines.*
 import mobile.kotlinlogin.rest.AppPreferences
 import retrofit2.Call
 import retrofit2.Callback
