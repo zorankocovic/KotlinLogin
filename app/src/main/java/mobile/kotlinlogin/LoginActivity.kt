@@ -7,9 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.app.R
 import mobile.kotlinlogin.model.LoginModel
 import mobile.kotlinlogin.rest.ApiLogin
-import kotlinx.android.synthetic.main.login.*
+//import kotlinx.android.synthetic.main.login.*
+import com.example.app.databinding.LoginBinding
 import mobile.kotlinlogin.rest.AppPreferences
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,9 +24,13 @@ class LoginActivity : AppCompatActivity() {
     var upass:String=""
     var successlogin:String = "0"
     private var typeText: TextView? = null
+    private lateinit var binding: LoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+        binding = LoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         AppPreferences.init(this)
        if(AppPreferences.isLogin){
            val intent = Intent(this, MainActivity::class.java)
@@ -38,8 +44,8 @@ class LoginActivity : AppCompatActivity() {
 // set on-click listener
         btn_login.setOnClickListener {
 
-            uemail=useremail.text.toString()
-            upass=  userpass.text.toString()
+            uemail=binding.useremail.text.toString()
+            upass=  binding.userpass.text.toString()
 
             getDat1a()
 
@@ -48,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
     private fun getDat1a() {
 
         val call: Call<List<LoginModel>> = ApiLogin.getClient.userlogin(uemail,upass)
-        llProgressBar.visibility = View.VISIBLE
+        binding.llProgressBar.root.visibility = View.VISIBLE
         call.enqueue(object : Callback<List<LoginModel>> {
 
             override fun onResponse(call: Call<List<LoginModel>>?, response: Response<List<LoginModel>>?) {
@@ -60,12 +66,12 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     // start your next activity
                     startActivity(intent)
-                    llProgressBar.visibility = View.GONE
+                    binding.llProgressBar.root.visibility = View.GONE
                     finish()
 
                 }
                 else
-                {  llProgressBar.visibility = View.GONE
+                {     binding.llProgressBar.root.visibility = View.GONE
                     Toast.makeText(applicationContext,"Wrong login data", Toast.LENGTH_SHORT).show()}
             }
 
