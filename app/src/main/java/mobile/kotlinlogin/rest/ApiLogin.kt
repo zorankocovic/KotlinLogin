@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 ////  BASE_URL  is your server folder where you will place all PHP scripts you need  for this app
 ////PHP files you can find at "PHPBackend" from yhe root of Kotlin login source code
-object ApiLogin { var BASE_URL:String="Your server"
+object ApiLogin { var BASE_URL:String="URL TO YOUR SERVER"
 
     val getClient: LoginInterface
         get() {
